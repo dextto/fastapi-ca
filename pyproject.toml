@@ -9,6 +9,8 @@ readme = "README.md"
 python = "^3.11"
 fastapi = "^0.109.0"
 uvicorn = {extras = ["standard"], version = "^0.25.0"}
+py-ulid = "^1.0.3"
+passlib = {extras = ["bcrypt"], version = "^1.7.4"}
 
 
 [build-system]
