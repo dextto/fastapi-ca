@@ -1,4 +1,7 @@
-from sqlalchemy import Column, String, DateTime
+from datetime import datetime
+
+from sqlalchemy import String, DateTime
+from sqlalchemy.orm import Mapped, mapped_column
 
 from database import Base
 
@@ -6,9 +9,9 @@ from database import Base
 class User(Base):
     __tablename__ = "User"
 
-    id = Column(String(36), primary_key=True)
-    name = Column(String(32), nullable=False)
-    email = Column(String(64), nullable=False)
-    password = Column(String(64), nullable=False)
-    created_at = Column(DateTime, nullable=False)
-    updated_at = Column(DateTime, nullable=False)
+    id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    name: Mapped[str] = mapped_column(String(32), nullable=False)
+    email: Mapped[str] = mapped_column(String(64), nullable=False, unique=True)
+    password: Mapped[str] = mapped_column(String(64), nullable=False)
+    created_at: Mapped[datetime] = mapped_column(DateTime, nullable=False)
+    updated_at: Mapped[datetime] = mapped_column(DateTime, nullable=False)
