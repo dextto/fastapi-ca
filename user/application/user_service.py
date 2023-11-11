@@ -1,3 +1,4 @@
+from fastapi import HTTPException
 from ulid import ULID
 from datetime import datetime
 from user.domain.user import User
@@ -13,7 +14,11 @@ class UserService:
         self.ulid = ULID()
 
     def create_user(self, name: str, email: str, password: str):
-        self.user_repo.find_by_email(email)
+        try:
+            self.user_repo.find_by_email(email)
+        except HTTPException as e:
+            if e.status_code != 422:
+                raise e
 
         now = datetime.now()
         user: User = User(
