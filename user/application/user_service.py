@@ -14,11 +14,15 @@ class UserService:
         self.ulid = ULID()
 
     def create_user(self, name: str, email: str, password: str):
+        _user = None
         try:
-            self.user_repo.find_by_email(email)
+            _user = self.user_repo.find_by_email(email)
         except HTTPException as e:
             if e.status_code != 422:
                 raise e
+
+        if _user:
+            raise HTTPException(status_code=422)
 
         now = datetime.now()
         user: User = User(
