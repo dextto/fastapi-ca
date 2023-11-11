@@ -1,3 +1,4 @@
+from ulid import ULID
 from datetime import datetime
 from user.domain.user import User
 from user.domain.repository.user_repo import IUserRepository
@@ -9,14 +10,20 @@ class UserService:
     def __init__(self):
         self.user_repo: IUserRepository = UserRepository()
         self.crypto = Crypto()
+        self.ulid = ULID()
 
     def create_user(self, name: str, email: str, password: str):
         self.user_repo.find_by_email(email)
 
-        encrypted_password = self.crypto.encrypt(password)
-
         now = datetime.now()
-        user: User = User(name, email, encrypted_password, now, now)
+        user: User = User(
+            id=self.ulid.generate(),
+            name=name,
+            email=email,
+            password=self.crypto.encrypt(password),
+            created_at=now,
+            updated_at=now,
+        )
         self.user_repo.save(user)
 
         return user
