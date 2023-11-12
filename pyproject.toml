@@ -14,6 +14,7 @@ py-ulid = "^1.0.3"
 sqlalchemy = "^2.0.23"
 mysqlclient = "^2.2.0"
 alembic = "^1.12.1"
+dependency-injector = "^4.41.0"
 
 
 [build-system]

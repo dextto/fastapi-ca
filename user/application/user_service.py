@@ -1,15 +1,22 @@
-from fastapi import HTTPException
-from ulid import ULID
 from datetime import datetime
+from ulid import ULID
+
+from dependency_injector.wiring import inject, Provide
+from fastapi import Depends, HTTPException
+
+from containers import Container
 from user.domain.user import User
 from user.domain.repository.user_repo import IUserRepository
-from user.infra.repository.user_repo import UserRepository
 from utils.crypto import Crypto
 
 
 class UserService:
-    def __init__(self):
-        self.user_repo: IUserRepository = UserRepository()
+    @inject
+    def __init__(
+        self,
+        user_repo: IUserRepository = Depends(Provide[Container.user_repo])
+    ):
+        self.user_repo = user_repo
         self.crypto = Crypto()
         self.ulid = ULID()
 
