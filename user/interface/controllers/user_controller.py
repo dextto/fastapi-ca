@@ -1,4 +1,5 @@
-from fastapi import APIRouter
+from typing import Annotated
+from fastapi import APIRouter, Depends
 from pydantic import BaseModel
 
 from user.application.user_service import UserService
@@ -13,12 +14,11 @@ class User(BaseModel):
 
 
 @router.post("", status_code=201)
-def create_user(user: User):
-    user_service = UserService()
+def create_user(
+    user: User, user_service: Annotated[UserService, Depends(UserService)]
+):
     created_user = user_service.create_user(
-        name=user.name,
-        email=user.email,
-        password=user.password
+        name=user.name, email=user.email, password=user.password
     )
 
     return created_user
