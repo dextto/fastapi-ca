@@ -15,13 +15,15 @@ class UserRepository(IUserRepository):
             created_at=user.created_at,
             updated_at=user.updated_at,
         )
-        db = SessionLocal()
-        db.add(new_user)
-        db.commit()
+
+        with SessionLocal() as session:
+            session = SessionLocal()
+            session.add(new_user)
+            session.commit()
 
     def find_by_email(self, email: str) -> UserVO:
-        db = SessionLocal()
-        user = db.query(User).filter(User.email == email).first()
+        with SessionLocal() as session:
+            user = session.query(User).filter(User.email == email).first()
 
         if not user:
             raise HTTPException(status_code=422)
