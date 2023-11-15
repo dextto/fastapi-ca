@@ -12,7 +12,7 @@ class User(BaseModel):
     password: str
 
 
-@router.post("")
+@router.post("", status_code=201)
 def create_user(user: User):
     user_service = UserService()
     created_user = user_service.create_user(
