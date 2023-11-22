@@ -20,7 +20,7 @@ async def validation_exception_handler(
 ):
     return JSONResponse(
         status_code=400,
-        content=exc.errors(),
+        content=str(exc.errors()),
     )
 
 if __name__ == "__main__":
