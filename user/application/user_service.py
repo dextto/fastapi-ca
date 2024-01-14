@@ -1,8 +1,8 @@
 from datetime import datetime
 from ulid import ULID
 
-from dependency_injector.wiring import inject, Provide
-from fastapi import Depends, HTTPException
+from dependency_injector.wiring import inject
+from fastapi import HTTPException
 
 from user.domain.user import User
 from user.domain.repository.user_repo import IUserRepository
