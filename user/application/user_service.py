@@ -13,8 +13,8 @@ class UserService:
     @inject
     def __init__(
         self,
-        user_repo: IUserRepository = Depends(Provide["user_repo"])
-        # user_repo: IUserRepository,
+        # user_repo: IUserRepository = Depends(Provide["user_repo"])
+        user_repo: IUserRepository,
     ):
         self.user_repo = user_repo
         self.crypto = Crypto()
