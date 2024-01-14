@@ -2,9 +2,9 @@ from datetime import datetime
 from ulid import ULID
 
 from dependency_injector.wiring import inject, Provide
-from fastapi import Depends, HTTPException
-
+from fastapi import HTTPException
 from containers import Container
+
 from user.domain.user import User
 from user.domain.repository.user_repo import IUserRepository
 from utils.crypto import Crypto
@@ -14,7 +14,7 @@ class UserService:
     @inject
     def __init__(
         self,
-        user_repo: IUserRepository = Depends(Provide[Container.user_repo])
+        user_repo: IUserRepository = Provide[Container.user_repo],
     ):
         self.user_repo = user_repo
         self.crypto = Crypto()
