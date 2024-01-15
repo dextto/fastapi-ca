@@ -63,3 +63,14 @@ def get_users(
         "page": page,
         "users": users,
     }
+
+
+@router.delete("", status_code=204)
+@inject
+def delete_user(
+    user_id: str,
+    user_service: UserService = Depends(Provide[Container.user_service]),
+):
+    # TODO: 다른 유저를 삭제할 수 없도록 토큰에서 유저 아이디를 구한다.
+
+    user_service.delete_user(user_id)
