@@ -1,5 +1,4 @@
 from config import get_settings
-
 from dataclasses import dataclass
 from datetime import datetime, timedelta
 from enum import StrEnum
