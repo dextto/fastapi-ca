@@ -22,6 +22,7 @@ python-dotenv = "^1.0.0"
 pydantic-settings = "^2.1.0"
 celery = "^5.3.6"
 requests = "^2.31.0"
+pytest = "^8.0.0"
 
 
 [build-system]
