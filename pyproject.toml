@@ -12,10 +12,12 @@ uvicorn = {extras = ["standard"], version = "^0.25.0"}
 py-ulid = "^1.0.3"
 passlib = {extras = ["bcrypt"], version = "^1.7.4"}
 sqlalchemy = "^2.0.25"
-mysqlclient = "^2.2.4"
+mysqlclient = "^2.2.1"
 alembic = "^1.13.1"
 dependency-injector = "^4.41.0"
 pydantic = {extras = ["email"], version = "^2.5.3"}
+python-jose = {extras = ["cryptography"], version = "^3.3.0"}
+python-multipart = "^0.0.6"
 
 
 [build-system]
