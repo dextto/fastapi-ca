@@ -28,3 +28,24 @@ def create_user(
     )
 
     return created_user
+
+
+class UpdateUser(BaseModel):
+    name: str | None = None
+    password: str | None = None
+
+
+@router.put("/{user_id}")
+@inject
+def update_user(
+    user_id: str,
+    user: UpdateUser,
+    user_service: UserService = Depends(Provide[Container.user_service]),
+):
+    user = user_service.update_user(
+        user_id=user_id,
+        name=user.name,
+        password=user.password
+    )
+
+    return user
