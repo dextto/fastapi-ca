@@ -1,5 +1,5 @@
 from datetime import datetime
-from http.client import HTTPException
+from fastapi import HTTPException
 from ulid import ULID
 
 from user.domain.user import User
