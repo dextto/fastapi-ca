@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 from ulid import ULID
 from note.domain.note import Note, Tag
 from note.domain.repository.note_repo import INoteRepository
