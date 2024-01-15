@@ -1,16 +1,20 @@
 from datetime import datetime
+from dependency_injector.wiring import inject
 from fastapi import HTTPException
 from ulid import ULID
 
 from user.domain.user import User
 from user.domain.repository.user_repo import IUserRepository
-from user.infra.repository.user_repo import UserRepository
 from utils.crypto import Crypto
 
 
 class UserService:
-    def __init__(self):
-        self.user_repo: IUserRepository = UserRepository()
+    @inject
+    def __init__(
+        self,
+        user_repo: IUserRepository,
+    ):
+        self.user_repo = user_repo
         self.ulid = ULID()
         self.crypto = Crypto()
 
