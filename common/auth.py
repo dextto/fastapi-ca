@@ -1,3 +1,5 @@
+from config import get_settings
+
 from dataclasses import dataclass
 from datetime import datetime, timedelta
 from enum import StrEnum
@@ -6,7 +8,9 @@ from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
 
-SECRET_KEY = "THIS_IS_SUPER_SECRET_KEY"
+settings = get_settings()
+
+SECRET_KEY = settings.jwt_secret
 ALGORITHM = "HS256"
 
 
