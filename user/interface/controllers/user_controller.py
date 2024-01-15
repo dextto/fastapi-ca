@@ -1,6 +1,8 @@
 from datetime import datetime
+from typing import Annotated
 from dependency_injector.wiring import inject, Provide
 from fastapi import APIRouter, Depends
+from fastapi.security import OAuth2PasswordRequestForm
 from pydantic import BaseModel, EmailStr, Field
 from containers import Container
 
@@ -89,3 +91,17 @@ def delete_user(
     # TODO: 다른 유저를 삭제할 수 없도록 토큰에서 유저 아이디를 구한다.
 
     user_service.delete_user(user_id)
+
+
+@router.post("/login")
+@inject
+def login(
+    form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
+    user_service: UserService = Depends(Provide[Container.user_service]),
+):
+    access_token = user_service.login(
+        email=form_data.username,
+        password=form_data.password,
+    )
+
+    return {"access_token": access_token, "token_type": "bearer"}
