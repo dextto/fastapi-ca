@@ -17,11 +17,14 @@ class UserService:
         self,
         user_repo: IUserRepository,
         email_service: EmailService,
+        ulid: ULID,
+        crypto: Crypto,
+        send_welcome_email_task: SendWelcomeEmailTask,
     ):
         self.user_repo = user_repo
-        self.ulid = ULID()
-        self.crypto = Crypto()
-        self.email_service = email_service
+        self.ulid = ulid
+        self.crypto = crypto
+        self.send_welcome_email_task = send_welcome_email_task
 
     def create_user(
         self,
@@ -53,7 +56,7 @@ class UserService:
         )
         self.user_repo.save(user)
 
-        SendWelcomeEmailTask().delay(user.email)
+        self.send_welcome_email_task.delay(user.email)
 
         return user
 
