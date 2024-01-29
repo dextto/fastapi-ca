@@ -1,4 +1,7 @@
 from dependency_injector import containers, providers
+from fastapi import BackgroundTasks
+
+from user.application.email_service import EmailService
 from user.application.user_service import UserService
 from note.application.note_service import NoteService
 
@@ -18,3 +21,9 @@ class Container(containers.DeclarativeContainer):
     user_service = providers.Factory(UserService, user_repo=user_repo)
     note_repo = providers.Factory(NoteRepository)
     note_service = providers.Factory(NoteService, note_repo=note_repo)
+    email_service = providers.Factory(EmailService)
+    user_service = providers.Factory(
+        UserService,
+        user_repo=user_repo,
+        email_service=email_service,
+    )
