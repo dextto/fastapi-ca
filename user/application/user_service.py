@@ -5,6 +5,7 @@ from ulid import ULID
 
 from common.auth import Role, create_access_token
 from user.application.email_service import EmailService
+from user.application.send_welcome_email_task import SendWelcomeEmailTask
 from user.domain.user import User
 from user.domain.repository.user_repo import IUserRepository
 from utils.crypto import Crypto
@@ -24,7 +25,7 @@ class UserService:
 
     def create_user(
         self,
-        background_tasks: BackgroundTasks,
+        # background_tasks: BackgroundTasks,
         name: str,
         email: str,
         password: str,
@@ -52,9 +53,7 @@ class UserService:
         )
         self.user_repo.save(user)
 
-        background_tasks.add_task(
-            self.email_service.send_email, user.email
-        )
+        SendWelcomeEmailTask().delay(user.email)
 
         return user
 
