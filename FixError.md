@@ -1,6 +1,6 @@
 # 책 출간 후 오류가 발견된 부분을 수정합니다.
 
-## 49 코드 3.13
+## p49. 코드 3.13
 원문
 ```
 @router.post("")
@@ -15,7 +15,7 @@ def create_user(user: CreateUserBody):
     return user
 ```
 
-## 62
+## p62
 원문
 ```
 with SessionLocal() as db:
